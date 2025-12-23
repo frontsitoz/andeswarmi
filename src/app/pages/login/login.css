@@ -1,0 +1,110 @@
+/* ===== LOGIN FIX (override de estilos globales) ===== */
+.login-fix{
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Título */
+.login-fix h2{
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #523B2B !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 48px !important;
+  text-align: center !important;
+}
+
+/* Labels */
+.login-fix label{
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #523B2B !important;
+  margin-bottom: 8px !important;
+}
+
+/* Inputs (gris suave + rounded + alto correcto) */
+.login-fix input{
+  width: 100% !important;
+  height: 44px !important;
+  background: #f7f7f7 !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  padding: 0 16px !important;
+  font-size: 16px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.login-fix input::placeholder{
+  color: #9a9a9a !important;
+}
+
+/* Botón "Iniciar Sesión" */
+.login-fix button[type="submit"]{
+  height: 54px !important;
+  border-radius: 10px !important;
+  background: #523B2B !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  border: none !important;
+}
+
+/* Link "Olvidé..." (quita azul y subrayado) */
+.login-fix a,
+.login-fix a:visited,
+.login-fix a:active{
+  color: #4a4a4a !important;
+  text-decoration: none !important;
+}
+
+.login-fix a:hover{
+  text-decoration: underline !important;
+}
+
+/* Espaciado del link (para que no quede pegado al botón) */
+.login-fix .forgot{
+  margin-top: 18px !important;
+  margin-bottom: 52px !important;
+  display: block !important;
+  text-align: center !important;
+  font-size: 16px !important;
+}
+
+
+
+
+/* ===== Botón Iniciar Sesión ===== */
+.btn-login{
+  width: 100%;
+  height: 54px;
+  margin-top: 22px;   
+  border-radius: 10px; 
+  border: none;
+  background: #523B2B;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Disabled */
+.btn-login:disabled{
+  background: #e9e9e9;
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+
+/* ===== Botón Registrarse (igual al de Iniciar Sesión) ===== */
+.btn-register{
+  width: 100%;
+  height: 54px;
+  border-radius: 10px !important ; /* Mismo rounded que el de Iniciar Sesión */
+  border: 1px solid #523B2B;
+  background: #fff;
+  color: #523B2B;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+

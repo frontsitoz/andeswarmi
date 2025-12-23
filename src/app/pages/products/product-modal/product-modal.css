@@ -1,0 +1,23 @@
+.modal-slide-in {
+  animation: slideInRight 0.3s ease forwards;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(12px); opacity: 0.6; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* Si algún día lo abres en móvil también, esto lo hace usable */
+@media (max-width: 768px) {
+  .modal-slide-in {
+    animation: slideUp 0.3s ease forwards;
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+}

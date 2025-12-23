@@ -1,0 +1,108 @@
+<main class="bg-white min-h-screen">
+  <!-- CONTENEDOR PRINCIPAL -->
+  <section
+    class="max-w-[1100px] mx-auto px-4 pt-6 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start"
+  >
+    <!-- IMAGEN -->
+    <div class="relative w-full flex justify-center lg:justify-start">
+      <button
+        class="absolute left-2 top-2 z-10 w-12 h-12 rounded-[12px] overflow-hidden bg-white shadow-lg flex items-center justify-center transition hover:-translate-y-1 back-btn"
+        (click)="backToHome()"
+      >
+        <img src="assets/icons/arrow.svg" class="w-5 h-5" />
+      </button>
+
+      <img
+        [src]="product?.image"
+        [alt]="product?.name"
+        (error)="onImageError($event)"
+        class="w-full max-w-[560px] object-contain rounded-xl"
+      />
+    </div>
+
+    <!-- INFO -->
+    <div class="w-full flex flex-col items-start text-left max-w-[560px] mx-auto lg:mx-0 lg:pt-10">
+      <p class="text-[#523b2b] font-semibold text-lg mb-2">$ {{ product?.price }}</p>
+
+      <h1
+        class="product-title !text-[#523b2b] text-[24px] sm:text-[26px] lg:text-[32px] font-semibold leading-tight mb-2"
+      >
+        {{ product?.name }}
+      </h1>
+
+      <p class="!text-[#523b2b] text-[15px] leading-[1.7] mb-6">
+        {{ product?.description }}
+      </p>
+
+      <!-- (Opcional) Tallas: si NO quieres que salga en el diseño como tu captura, bórralo.
+         Si sí quieres mantenerlo, quedará alineado a la izquierda igual. -->
+      <div class="w-full flex items-center gap-4 mb-5">
+        <span class="text-sm !text-[#523b2b] font-medium">Talla</span>
+
+        <div class="flex gap-2">
+          <button
+            type="button"
+            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+          >
+            S
+          </button>
+          <button
+            type="button"
+            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+          >
+            M
+          </button>
+          <button
+            type="button"
+            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+          >
+            L
+          </button>
+          <button
+            type="button"
+            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+          >
+            XL
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTÓN -->
+      <button
+        (click)="addToCart(product)"
+        class="add-to-cart-btn w-full h-[54px] bg-[#523b2b] text-white font-semibold text-[16px] !rounded-[10px] flex items-center justify-center gap-3 transition hover:bg-[#3c2d21]"
+      >
+        <img
+          [src]="isAdded ? 'assets/icons/bt_added_to_cart.svg' : 'assets/icons/bt_add_to_cart.svg'"
+          alt="cart"
+          class="cart-icon w-10 h-10"
+        />
+        Add to cart
+      </button>
+    </div>
+  </section>
+
+  <!-- RELACIONADOS -->
+  <section *ngIf="relatedProducts.length" class="mt-14 px-4">
+    <h2 class="text-[#523b2b] text-base md:text-lg font-medium mb-6">También te puede gustar</h2>
+
+    <div class="relative">
+      <div class="flex gap-4 overflow-x-auto pb-4 scroll-smooth" #slider>
+        <div
+          *ngFor="let p of relatedProducts"
+          (click)="goToProduct(p.id)"
+          class="min-w-[160px] bg-white border rounded-xl cursor-pointer transition hover:scale-105"
+        >
+          <img [src]="p.image" class="w-full h-[160px] object-contain rounded-t-xl bg-[#fafafa]" />
+
+          <div class="p-3 text-center">
+            <p class="text-sm text-[#333] mb-1">
+              {{ p.name }}
+            </p>
+            <p class="font-semibold text-[#523b2b]">$ {{ p.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

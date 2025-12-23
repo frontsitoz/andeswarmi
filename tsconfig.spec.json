@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": ["jasmine", "node"] // <-- agrega "node" también
+  },
+  "include": ["src/**/*.spec.ts"] // <-- incluye SOLO los tests
+}

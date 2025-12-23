@@ -1,0 +1,105 @@
+<div class="login">
+  <div class="form-container">
+    <h2 class="title" style="color: #523b2b; font-weight: 600">Crear cuenta</h2>
+
+    <form #form="ngForm" class="form" (ngSubmit)="onSubmit(form)" novalidate>
+      <!-- NOMBRE -->
+      <label for="name" class="label" style="color: #523b2b; font-weight: bold"> Nombre </label>
+
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="name"
+        #nameModel="ngModel"
+        required
+        placeholder="Ingrese su nombre"
+        class="input input-name"
+        [ngClass]="
+          nameModel.invalid && (nameModel.touched || submitted)
+            ? '!border-red-500 !ring-2 !ring-red-500/20'
+            : ''
+        "
+      />
+
+      @if (nameModel.invalid && (nameModel.touched || submitted)) {
+      <p class="text-[#b00020] text-[13px] mt-[6px]">El nombre es obligatorio.</p>
+      }
+
+      <!-- EMAIL -->
+      <label for="email" class="label" style="color: #523b2b; font-weight: bold"> Email </label>
+
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        #emailModel="ngModel"
+        required
+        email
+        placeholder="Ingrese su email"
+        class="input input-email"
+        [ngClass]="
+          emailModel.invalid && (emailModel.touched || submitted)
+            ? '!border-red-500 !ring-2 !ring-red-500/20'
+            : ''
+        "
+      />
+
+      @if (emailModel.invalid && (emailModel.touched || submitted)) {
+      <p class="text-[#b00020] text-[13px] mt-[6px]">
+        @if (emailModel.errors?.['required']) { El email es obligatorio. } @if
+        (emailModel.errors?.['email']) { Ingrese un email válido. }
+      </p>
+      }
+
+      <!-- PASSWORD -->
+      <label for="password" class="label" style="color: #523b2b; font-weight: bold">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        #pwdModel="ngModel"
+        required
+        minlength="6"
+        placeholder="*******"
+        class="input input-password"
+        [ngClass]="
+          pwdModel.invalid && (pwdModel.touched || submitted)
+            ? '!border-red-500 !ring-2 !ring-red-500/20'
+            : ''
+        "
+      />
+
+      @if (pwdModel.invalid && (pwdModel.touched || submitted)) {
+      <p class="text-[#b00020] text-[13px] mt-[6px]">
+        @if (pwdModel.errors?.['required']) { La contraseña es obligatoria. } @if
+        (pwdModel.errors?.['minlength']) { Debe tener al menos 6 caracteres. }
+      </p>
+      }
+
+      <!-- BOTÓN -->
+      <input
+        type="submit"
+        value="Registrarte"
+        class="primary-button login-button"
+        [disabled]="loading"
+      />
+
+      <!-- ERROR GENERAL -->
+      @if (registerError) {
+      <p class="text-[#b00020] text-[13px] mt-[12px]" role="alert">
+        {{ registerError }}
+      </p>
+      }
+
+      <a routerLink="/login" style="display: block; margin-top: 16px; text-align: center">
+        ¿Ya tienes una cuenta?
+      </a>
+    </form>
+  </div>
+</div>

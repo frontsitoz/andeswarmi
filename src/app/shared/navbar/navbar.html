@@ -1,0 +1,187 @@
+<!-- HEADER NAVBAR -->
+<header class="sticky top-0 z-50 bg-white border-b border-[#eeeeee]">
+  <div
+    class="w-full max-w-[1600px] mx-auto px-4 md:px-10 py-3 grid grid-cols-[auto_1fr_auto] items-center lg:flex lg:justify-between"
+  >
+    <!-- Botón hamburguesa (solo mobile) -->
+    <button
+      class="flex items-center justify-center lg:hidden border-0 bg-transparent p-1.5 cursor-pointer"
+      (click)="toggleSidebar()"
+      aria-label="Open menu"
+    >
+      <img class="w-6 h-6 block" src="assets/icons/icon_menu.svg" alt="menu" />
+    </button>
+
+    <!-- Logo -->
+    <a routerLink="/" aria-label="Home" class="flex items-center justify-center lg:justify-start">
+      <img class="h-7 block" src="assets/logos/andeswarmi-logo.svg" alt="AndesWarmi" />
+    </a>
+
+    <!-- Categorías Desktop -->
+    <nav class="hidden lg:flex items-center justify-center gap-3 px-4">
+      <button
+        *ngFor="let cat of categories"
+        (click)="selectCategory(cat)"
+        class="inline-flex items-center justify-center bg-white text-[#523B2B] text-[16px] px-[14px] py-2"
+        [ngClass]="
+          cat === activeCategory
+            ? '!rounded-[10px] border-[1.5px] border-[#523B2B] px-[16px] py-[6px] font-bold text-[14px]'
+            : ''
+        "
+      >
+        {{ cat }}
+      </button>
+    </nav>
+
+    <!-- Acciones -->
+    <div class="flex items-center gap-6 whitespace-nowrap justify-self-end">
+      <!-- Visitante -->
+      <a
+        *ngIf="!user"
+        routerLink="/login"
+        class="inline-block font-semibold text-[14px]"
+        style="color: #523b2b; text-decoration: none"
+      >
+        Iniciar sesión
+      </a>
+
+      <!-- Usuario logueado -->
+      <ng-container *ngIf="user">
+        <!-- Menú usuario -->
+        <div
+          class="user-menu relative flex items-center gap-2 cursor-pointer"
+          (click)="toggleUserMenu()"
+        >
+          <!-- email: oculto en mobile, visible desde md -->
+          <span class="hidden md:inline-block max-w-[180px] truncate text-[14px] text-[#444444]">
+            {{ user.email }}
+          </span>
+          <i class="fa-solid fa-chevron-down text-xs text-[#444444]"></i>
+
+          <!-- Dropdown -->
+          <div
+            class="absolute top-full right-0 mt-2 bg-white border border-[#dddddd] rounded-md shadow-[0_4px_10px_rgba(0,0,0,0.1)] flex flex-col min-w-[160px] z-10"
+            *ngIf="userMenuOpen"
+          >
+            <a
+              routerLink="/account"
+              class="px-4 py-3 text-[0.9rem] text-left text-[var(--aw-brown)] no-underline hover:bg-[#f6f6f6]"
+            >
+              Mi cuenta
+            </a>
+            <a
+              routerLink="/orders"
+              class="px-4 py-3 text-[0.9rem] text-left text-[var(--aw-brown)] no-underline hover:bg-[#f6f6f6]"
+            >
+              Mis pedidos
+            </a>
+            <button
+              (click)="logout()"
+              class="px-4 py-3 text-[0.9rem] text-left text-[var(--aw-brown)] hover:bg-[#f6f6f6]"
+            >
+              Salir
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Carrito -->
+      <button
+        class="relative border-0 bg-transparent p-1.5 cursor-pointer"
+        aria-label="Cart"
+        (click)="openCart()"
+      >
+        <img
+          class="w-[25px] h-[26px] block transition-transform duration-150 ease-out"
+          src="assets/icons/icon_shopping_cart.svg"
+          alt="cart"
+        />
+        <span
+          *ngIf="cartCount > 0"
+          class="absolute top-[1px] right-[2px] inline-flex items-center justify-center w-[15px] h-[15px] rounded-full text-white text-[12px] bg-[var(--aw-brown)] px-[6px] shadow-[0_2px_6px_rgba(0,0,0,0.15)] font-semibold"
+        >
+          {{ cartCount }}
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- SIDEBAR (mobile) -->
+<aside
+  class="fixed top-0 left-0 z-[999] w-full max-w-[320px] h-dvh bg-white shadow-[2px_0_10px_rgba(0,0,0,0.1)] p-8 flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-y-auto -translate-x-full lg:hidden"
+  [ngClass]="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+>
+  <div class="flex items-center justify-between mb-8">
+    <h3 class="m-0 uppercase tracking-[0.5px] text-[var(--aw-brown)] text-[1rem] font-bold">
+      Categorías
+    </h3>
+    <button
+      class="border-none bg-transparent text-[22px] text-[var(--aw-brown)] cursor-pointer leading-none"
+      (click)="toggleSidebar()"
+    >
+      ✕
+    </button>
+  </div>
+
+  <nav class="flex flex-col gap-8 mb-5">
+    <a
+      *ngFor="let category of categories"
+      class="!text-[var(--aw-brown)] !no-underline text-[1rem] font-medium cursor-pointer transition-colors duration-200"
+      [ngClass]="category === activeCategory ? 'font-semibold' : ''"
+      (click)="selectCategory(category); toggleSidebar()"
+    >
+      {{ category }}
+    </a>
+
+    <hr class="border-t border-[#eeeeee]" />
+
+    <a
+      *ngIf="!user"
+      routerLink="/login"
+      class="!text-[var(--aw-brown)] !no-underline text-[1rem] font-medium cursor-pointer transition-colors duration-200"
+      (click)="toggleSidebar()"
+    >
+      Iniciar Sesión
+    </a>
+
+    <ng-container *ngIf="user">
+      <a
+        routerLink="/orders"
+        class="text-[var(--aw-brown)] !no-underline text-[1rem] font-medium cursor-pointer transition-colors duration-200"
+        (click)="toggleSidebar()"
+      >
+        Mis pedidos
+      </a>
+
+      <a
+        routerLink="/account"
+        class="text-[var(--aw-brown)] no-underline text-[1rem] font-medium cursor-pointer pt-2"
+        (click)="toggleSidebar()"
+      >
+        Mi cuenta
+      </a>
+
+      <!-- Usuario dentro del sidebar -->
+      <div class="mt-auto flex flex-col">
+        <p class="text-[var(--aw-brown)] font-light text-[14px] truncate mb-4 mt-6">
+          {{ user.email }}
+        </p>
+
+        <button
+          class="bg-transparent border-0 p-0 text-left text-[16px] text-[var(--aw-brown)] font-medium cursor-pointer"
+          (click)="logout()"
+        >
+          Salir
+        </button>
+      </div>
+    </ng-container>
+  </nav>
+</aside>
+
+<!-- Backdrop del sidebar -->
+<div
+  *ngIf="sidebarOpen"
+  class="fixed inset-0 bg-black/35 z-[998] lg:hidden"
+  (click)="toggleSidebar()"
+></div>

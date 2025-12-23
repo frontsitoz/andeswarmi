@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --very-light-pink: #C7C7C7;
+  --text-input-field: #f7f7f7;
+
+  /* Si lo vas a usar, mejor renómbralo o elimínalo, porque no es "green" */
+  --hospital-green: #523B2B;
+
+  /* Branding */
+  --aw-brown: #523B2B;
+  --aw-cream: #F5E9DD;
+
+  --sm: 14px;
+  --md: 16px;
+  --lg: 18px;
+}
+
+body {
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+}

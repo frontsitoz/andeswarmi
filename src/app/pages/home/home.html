@@ -1,0 +1,131 @@
+<!-- src/app/pages/home/home.html -->
+
+<main class="w-full max-w-[1550px] mx-auto px-4 md:px-10 pt-6 pb-10">
+  <!-- Banner -->
+  <section class="relative w-full h-[60vh] md:h-[75vh] rounded-xl overflow-hidden mb-7 md:mb-10">
+    <picture class="w-full h-full">
+      <source srcset="assets/img/banner-andeswarmi.png" media="(max-width: 768px)" />
+      <img
+        src="assets/img/portada-origenes.png"
+        alt="Banner AndesWarmi"
+        class="w-full h-full object-cover"
+      />
+    </picture>
+
+    <!-- Overlay profesional -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/45 via-black/25 to-transparent"></div>
+
+    <!-- Texto del banner -->
+    <div class="absolute inset-0 flex items-center md:items-center md:justify-start">
+      <div class="relative z-10 px-6 md:px-12 max-w-lg text-white">
+        <h1
+          class="text-3xl md:text-5xl font-semibold leading-tight mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]"
+        >
+          Descubre el origen de la calidez
+        </h1>
+
+        <p class="text-base md:text-lg font-light mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]">
+          Prendas elaboradas con fibras de alpaca y vicuña 100% peruanas.
+        </p>
+
+        <a
+          href="#productos"
+          role="button"
+          class="inline-flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 px-6 py-3 hover:bg-white/30 transition text-white font-medium"
+        >
+          Explorar colección
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topbar: Search + Order -->
+  <div class="grid gap-10 my-3 lg:my-3 lg:grid-cols-[minmax(420px,640px)_auto] lg:items-center">
+    <!-- Search -->
+    <div
+      class="flex items-center w-full max-w-full rounded-xl border border-[#eeeeee] bg-[#f7f7f7] px-3 py-2.5"
+    >
+      <img class="w-5 h-5 mr-2" src="assets/icons/lupa.svg" alt="lupa" />
+      <input
+        type="search"
+        placeholder="Search product"
+        aria-label="Search product"
+        [value]="searchTerm"
+        (input)="onSearch($any($event.target).value)"
+        class="w-full border-none bg-transparent outline-none text-sm"
+      />
+    </div>
+
+    <!-- Order -->
+    <div class="flex items-center gap-2">
+      <span class="text-black font-semibold">Order:</span>
+      <select
+        class="px-3 py-2 rounded-lg bg-white text-sm border-none outline-none"
+        [value]="sortOption"
+        (change)="onSortChange($any($event.target).value)"
+      >
+        <option value="recent">Más recientes</option>
+        <option value="bestsellers">Más vendidos</option>
+        <option value="price-asc">Menor precio</option>
+        <option value="price-desc">Mayor precio / Exclusivos</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Resultados -->
+  <div class="flex items-center gap-3 mx-4 my-2">
+    <div class="text-[#666666] text-xs inline-flex items-center">
+      {{ filteredProducts.length }} resultados
+    </div>
+  </div>
+
+  <div id="productos"></div>
+
+  <!-- Grid de productos -->
+  <section class="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6">
+    <div
+      *ngFor="let product of filteredProducts"
+      class="relative border border-[#eeeeee] rounded-xl bg-white overflow-hidden cursor-pointer"
+      (click)="openProduct(product)"
+    >
+      <!-- Imagen del producto -->
+      <img
+        [src]="product.image"
+        [alt]="product.name"
+        class="w-full h-60 object-contain bg-[#fafafa]"
+      />
+
+      <!-- Texto -->
+      <div class="p-3 pr-16">
+        <p class="m-0 font-bold">$ {{ product.price }}</p>
+        <p class="mt-1 text-[#666666] text-sm md:text-base">
+          {{ product.name }}
+        </p>
+      </div>
+
+      <!-- Carrito flotante -->
+      <button
+        class="absolute bottom-4 right-4 w-12 h-12 rounded-full flex items-center justify-center transition"
+        (click)="addToCart(product, $event)"
+        (click)="$event.stopPropagation()"
+      >
+        <img
+          [src]="
+            addedMap[product.id]
+              ? 'assets/icons/bt_added_to_cart.svg'
+              : 'assets/icons/bt_add_to_cart.svg'
+          "
+          alt="cart"
+          class="w-9 h-9"
+        />
+      </button>
+    </div>
+  </section>
+
+  <!-- 🖥️ Modal del producto (solo desktop) -->
+  <app-product-modal
+    *ngIf="showModal && selectedProduct"
+    [product]="selectedProduct"
+    (close)="closeModal()"
+  ></app-product-modal>
+</main>
