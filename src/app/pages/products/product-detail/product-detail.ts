@@ -20,6 +20,10 @@ export class ProductDetail implements OnInit, OnDestroy {
   relatedProducts: any[] = [];
   private sub: any;
 
+  // Talla seleccionada (para destacar y acceder desde addToCart si se desea)
+  selectedSize: string | null = null;
+
+
   @ViewChild('slider') sliderRef!: ElementRef<HTMLDivElement>;
 
   constructor(
@@ -68,6 +72,7 @@ export class ProductDetail implements OnInit, OnDestroy {
       name: product.name,
       price: product.price,
       image: product.image,
+      size: this.selectedSize || undefined
     });
 
     this.cart.openDrawer();
@@ -81,6 +86,10 @@ export class ProductDetail implements OnInit, OnDestroy {
 
   backToHome() {
     this.router.navigate(['/']);
+  }
+
+  selectSize(size: string) {
+    this.selectedSize = size;
   }
 
   onImageError(event: Event) {

@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
         <img [src]="it.image || '/assets/icons/icon_shopping_cart.svg'" alt=""/>
         <div class="info">
           <div class="name">{{it.name}}</div>
-      <div class="meta">S/{{ it.price | number:'1.2-2' }}</div>
+      <div class="meta">{{ it.size ? (it.size + ' / ') : '' }}S/{{ it.price | number:'1.2-2' }}</div>
 
       <div class="qty-controls">
       <button (click)="decrease(it)">−</button>

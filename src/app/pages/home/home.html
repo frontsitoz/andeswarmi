@@ -96,16 +96,37 @@
       />
 
       <!-- Texto -->
-      <div class="p-3 pr-16">
-        <p class="m-0 font-bold">$ {{ product.price }}</p>
-        <p class="mt-1 text-[#666666] text-sm md:text-base">
-          {{ product.name }}
-        </p>
+      <div class="p-3 pr-28 pb-6 sm:pr-16 md:pr-16">
+        <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
+          <div class="flex-1">
+            <p class="m-0 font-bold">$ {{ product.price }}</p>
+            <p class="mt-1 text-[#666666] text-sm md:text-base">
+              {{ product.name }}
+            </p>
+          </div>
+
+          <!-- Botón inline para móviles (mantiene estilo existente) -->
+          <button
+            class="inline-flex items-center justify-center w-12 h-12 rounded-full transition sm:hidden mt-3 sm:mt-0"
+            (click)="addToCart(product, $event)"
+            (click)="$event.stopPropagation()"
+          >
+            <img
+              [src]="
+                addedMap[product.id]
+                  ? 'assets/icons/bt_added_to_cart.svg'
+                  : 'assets/icons/bt_add_to_cart.svg'
+              "
+              alt="cart"
+              class="w-9 h-9"
+            />
+          </button>
+        </div>
       </div>
 
       <!-- Carrito flotante -->
       <button
-        class="absolute bottom-4 right-4 w-12 h-12 rounded-full flex items-center justify-center transition"
+        class="hidden sm:flex absolute bottom-6 right-6 sm:bottom-4 sm:right-4 w-12 h-12 rounded-full items-center justify-center transition z-10"
         (click)="addToCart(product, $event)"
         (click)="$event.stopPropagation()"
       >

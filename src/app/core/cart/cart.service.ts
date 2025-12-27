@@ -6,6 +6,8 @@ export interface CartItem {
   name: string;
   price: number;
   image?: string;
+  // talla seleccionada (opcional)
+  size?: string;
   qty: number;
 }
 
@@ -63,11 +65,13 @@ export class CartService {
   getItems() { return [...this.items]; }
 
   addItem(item: Omit<CartItem,'qty'>, qty = 1) {
-    const found = this.items.find(i => i.id === item.id);
+    // Considerar tamaño al identificar si ya existe el item
+    const found = this.items.find(i => i.id === item.id && (i.size || '') === ((item as any).size || ''));
     if (found) {
       found.qty += qty;
     } else {
-      this.items.push({ ...item, qty });
+      // permitir que el item incluya una talla opcional
+      this.items.push({ ...(item as any), qty });
     }
     this.save();
     // emitir evento de añadido

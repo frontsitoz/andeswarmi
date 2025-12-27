@@ -42,25 +42,53 @@
         <div class="flex gap-2">
           <button
             type="button"
-            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+            (click)="selectSize('S')"
+            [attr.aria-pressed]="selectedSize === 'S'"
+            [ngClass]="
+              selectedSize === 'S'
+                ? 'bg-[var(--aw-brown)] !text-white border-[var(--aw-brown)]'
+                : ''
+            "
+            class="w-12 h-12 rounded-lg border text-[#523b2b] border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:outline-none focus:ring-2 focus:ring-[var(--aw-brown)] focus:ring-offset-1"
           >
             S
           </button>
           <button
             type="button"
-            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+            (click)="selectSize('M')"
+            [attr.aria-pressed]="selectedSize === 'M'"
+            [ngClass]="
+              selectedSize === 'M'
+                ? 'bg-[var(--aw-brown)] !text-white border-[var(--aw-brown)]'
+                : ''
+            "
+            class="w-12 h-12 rounded-lg border text-[#523b2b] border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:outline-none focus:ring-2 focus:ring-[var(--aw-brown)] focus:ring-offset-1"
           >
             M
           </button>
           <button
             type="button"
-            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+            (click)="selectSize('L')"
+            [attr.aria-pressed]="selectedSize === 'L'"
+            [ngClass]="
+              selectedSize === 'L'
+                ? 'bg-[var(--aw-brown)] !text-white border-[var(--aw-brown)]'
+                : ''
+            "
+            class="w-12 h-12 rounded-lg border text-[#523b2b] border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:outline-none focus:ring-2 focus:ring-[var(--aw-brown)] focus:ring-offset-1"
           >
             L
           </button>
           <button
             type="button"
-            class="w-12 h-12 rounded-lg border border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:bg-[#523b2b] focus:text-white"
+            (click)="selectSize('XL')"
+            [attr.aria-pressed]="selectedSize === 'XL'"
+            [ngClass]="
+              selectedSize === 'XL'
+                ? 'bg-[var(--aw-brown)] !text-white border-[var(--aw-brown)]'
+                : ''
+            "
+            class="w-12 h-12 rounded-lg border text-[#523b2b] border-[#efe9e3] text-sm hover:bg-[#f5efe7] focus:outline-none focus:ring-2 focus:ring-[var(--aw-brown)] focus:ring-offset-1"
           >
             XL
           </button>
@@ -84,7 +112,7 @@
 
   <!-- RELACIONADOS -->
   <section *ngIf="relatedProducts.length" class="mt-14 px-4">
-    <h2 class="text-[#523b2b] text-base md:text-lg font-medium mb-6">También te puede gustar</h2>
+    <h2 class="!text-[#523b2b] text-base md:text-lg font-medium mb-6">También te puede gustar</h2>
 
     <div class="relative">
       <div class="flex gap-4 overflow-x-auto pb-4 scroll-smooth" #slider>
